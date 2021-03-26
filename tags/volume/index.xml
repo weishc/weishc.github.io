@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>volume - Tag - Weishc</title>
+        <link>/tags/volume/</link>
+        <description>volume - Tag - Weishc</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>x0z7pchome@gmail (Wei-Xiang Chen)</managingEditor>
+            <webMaster>x0z7pchome@gmail (Wei-Xiang Chen)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 26 Mar 2021 00:00:00 &#43;0000</lastBuildDate><atom:link href="/tags/volume/" rel="self" type="application/rss+xml" /><item>
+    <title>Delete volume using point with VEX</title>
+    <link>/delete-volume-using-point-with-vex/</link>
+    <pubDate>Fri, 26 Mar 2021 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>/delete-volume-using-point-with-vex/</guid>
+    <description><![CDATA[Delete volume using point with VEX volume wrangle: 1 2 3 4 5 6  int pt = nearpoint(1,@P); vector P = point(1,&#39;P&#39;,pt); float radius = chf(&#39;radius&#39;); float del = chramp(&#39;falloff&#39;,fit(distance(@P,P),chf(&#39;min&#39;),radius,0,1)); @density*=del; @temperature*=del;   ]]></description>
+</item></channel>
+</rss>

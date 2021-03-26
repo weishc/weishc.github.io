@@ -1,0 +1,17 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>mantra - Tag - Weishc</title>
+        <link>/tags/mantra/</link>
+        <description>mantra - Tag - Weishc</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>x0z7pchome@gmail (Wei-Xiang Chen)</managingEditor>
+            <webMaster>x0z7pchome@gmail (Wei-Xiang Chen)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 26 Mar 2021 00:00:00 &#43;0000</lastBuildDate><atom:link href="/tags/mantra/" rel="self" type="application/rss+xml" /><item>
+    <title>Blackbody to Cd and control with attribute</title>
+    <link>/blackbody-to-cd-and-control-with-attribute/</link>
+    <pubDate>Fri, 26 Mar 2021 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>/blackbody-to-cd-and-control-with-attribute/</guid>
+    <description><![CDATA[Blackbody to Cd and control with attribute pyroBlackbody VOP Normal life attribute for example.
+Beware of before H17, pyroBlackbody does not have the option of minimum temperature (temp0). This may cause unexpected results in some situations.
+color space transform from XYZ to RGB]]></description>
+</item></channel>
+</rss>

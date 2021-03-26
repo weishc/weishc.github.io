@@ -1,0 +1,20 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>CFX - Tag - Weishc</title>
+        <link>/tags/cfx/</link>
+        <description>CFX - Tag - Weishc</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>x0z7pchome@gmail (Wei-Xiang Chen)</managingEditor>
+            <webMaster>x0z7pchome@gmail (Wei-Xiang Chen)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 12 Mar 2021 00:00:00 &#43;0000</lastBuildDate><atom:link href="/tags/cfx/" rel="self" type="application/rss+xml" /><item>
+    <title>Vellum布料筆記</title>
+    <link>/vellum-cloth-note/</link>
+    <pubDate>Fri, 12 Mar 2021 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>/vellum-cloth-note/</guid>
+    <description><![CDATA[Vellum Cloth note Workflow：
+準備衣服geo/asset → Attach cloth on T-pose → 模擬動態 → Vellum post process(auto fix bugs) → 手動修穿
+1.準備衣服geo for需要自己縫衣服時
+drawcurve點出衣物頂點/錨點 → add將點連成線 → 各線段各自resample成subdiv cruve → planar patch from curve
+ 線轉面要求是封閉的線段，無效時用fuse planar patch from curve要勾resample curve 線轉成面之前給個edit，調整衣物版型用  2.Attach cloth on T-pose Method 1： Vellum drape node Method 2： Vellum stich(可選) → Vellum weld → Vellum solver
+ Vellum drape=time shift Vellum solver的collision 到 1F + Vellum weld 非布料類的配件此時縫上 模擬鈕扣：交互模擬RBD(WIP)詳見下方 分次drape時要先用post process node 把縫合的邊fuse  3.]]></description>
+</item></channel>
+</rss>

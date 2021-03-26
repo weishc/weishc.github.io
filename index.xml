@@ -1,0 +1,72 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Weishc</title>
+        <link>/</link>
+        <description>Wei-Xiang Chen, Houdini FX Artist</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>x0z7pchome@gmail (Wei-Xiang Chen)</managingEditor>
+            <webMaster>x0z7pchome@gmail (Wei-Xiang Chen)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 26 Mar 2021 00:00:00 &#43;0000</lastBuildDate>
+            <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+        <item>
+    <title>Blackbody to Cd and control with attribute</title>
+    <link>/blackbody-to-cd-and-control-with-attribute/</link>
+    <pubDate>Fri, 26 Mar 2021 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>/blackbody-to-cd-and-control-with-attribute/</guid>
+    <description><![CDATA[Blackbody to Cd and control with attribute pyroBlackbody VOP Normal life attribute for example.
+Beware of before H17, pyroBlackbody does not have the option of minimum temperature (temp0). This may cause unexpected results in some situations.
+color space transform from XYZ to RGB]]></description>
+</item><item>
+    <title>Camera frustum with UV</title>
+    <link>/camera-frustum-with-uv/</link>
+    <pubDate>Fri, 26 Mar 2021 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>/camera-frustum-with-uv/</guid>
+    <description><![CDATA[Camera frustum with UV For delete volume, I suggest tha volume node with volume mix/vdb combine. point wrangle: 1 2 3 4  float margin = chf(&#39;margin&#39;); if (@uv.z == 0) removepoint(0,@ptnum); if (@uv.x &lt; -margin || @uv.x &gt; 1+margin) removepoint(0,@ptnum); if (@uv.y &lt; -margin || @uv.y &gt; 1+margin) removepoint(0,@ptnum);   ]]></description>
+</item><item>
+    <title>Delete volume using point with VEX</title>
+    <link>/delete-volume-using-point-with-vex/</link>
+    <pubDate>Fri, 26 Mar 2021 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>/delete-volume-using-point-with-vex/</guid>
+    <description><![CDATA[Delete volume using point with VEX volume wrangle: 1 2 3 4 5 6  int pt = nearpoint(1,@P); vector P = point(1,&#39;P&#39;,pt); float radius = chf(&#39;radius&#39;); float del = chramp(&#39;falloff&#39;,fit(distance(@P,P),chf(&#39;min&#39;),radius,0,1)); @density*=del; @temperature*=del;   ]]></description>
+</item><item>
+    <title>Export ass with motion blur in Maya</title>
+    <link>/export-ass-with-motion-blur-in-maya/</link>
+    <pubDate>Fri, 26 Mar 2021 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>/export-ass-with-motion-blur-in-maya/</guid>
+    <description><![CDATA[Export ass with motion blur in Maya Enable motion in Maya render setting. Then you can render this ass with motion blur in other DCC such as Houdini.]]></description>
+</item><item>
+    <title>Houdini math note</title>
+    <link>/houdini-math-note/</link>
+    <pubDate>Fri, 26 Mar 2021 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>/houdini-math-note/</guid>
+    <description><![CDATA[Houdini math note dot product:Determine the general direction of velocity.(acute angle or obtuse angle) In order to determine that the Angle between @v and the X-axis is acute or obtuse.
+x=(1,0,0)
+if (@v dot x) &gt; 0 = +x, else ＝ opposite direction
+dot product Find the angle between two vectors. 1 2 3  vector a = set(0,1,0); vector b = set(1,0,0); f@angle=degrees(acos(dot(a, b)/length(a)*length(b)));   @angle=90
+Also, it can be written as:]]></description>
+</item><item>
+    <title>HtoA set camera background image</title>
+    <link>/htoa-set-camera-background-image/</link>
+    <pubDate>Fri, 12 Mar 2021 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>/htoa-set-camera-background-image/</guid>
+    <description><![CDATA[HtoA set camera background image Create an Arnold shader network in SHOP and connect the nodes like this. Set the state_float node with X &amp; Y.
+Finally, set the Environment shader parameter to this shop node, under the Arnold ROP.
+tags: Htoa Houdini Arnold ROP out render ]]></description>
+</item><item>
+    <title>Vellum布料筆記</title>
+    <link>/vellum-cloth-note/</link>
+    <pubDate>Fri, 12 Mar 2021 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>/vellum-cloth-note/</guid>
+    <description><![CDATA[Vellum Cloth note Workflow：
+準備衣服geo/asset → Attach cloth on T-pose → 模擬動態 → Vellum post process(auto fix bugs) → 手動修穿
+1.準備衣服geo for需要自己縫衣服時
+drawcurve點出衣物頂點/錨點 → add將點連成線 → 各線段各自resample成subdiv cruve → planar patch from curve
+ 線轉面要求是封閉的線段，無效時用fuse planar patch from curve要勾resample curve 線轉成面之前給個edit，調整衣物版型用  2.Attach cloth on T-pose Method 1： Vellum drape node Method 2： Vellum stich(可選) → Vellum weld → Vellum solver
+ Vellum drape=time shift Vellum solver的collision 到 1F + Vellum weld 非布料類的配件此時縫上 模擬鈕扣：交互模擬RBD(WIP)詳見下方 分次drape時要先用post process node 把縫合的邊fuse  3.]]></description>
+</item></channel>
+</rss>

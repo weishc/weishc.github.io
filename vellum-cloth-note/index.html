@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Vellum布料筆記 - Weishc</title><meta name="Description" content="Wei-Xiang Chen, Houdini FX Artist"><meta property="og:title" content="Vellum布料筆記" />
+<meta property="og:description" content="Vellum Cloth note Workflow：
+準備衣服geo/asset → Attach cloth on T-pose → 模擬動態 → Vellum post process(auto fix bugs) → 手動修穿
+1.準備衣服geo for需要自己縫衣服時
+drawcurve點出衣物頂點/錨點 → add將點連成線 → 各線段各自resample成subdiv cruve → planar patch from curve
+ 線轉面要求是封閉的線段，無效時用fuse planar patch from curve要勾resample curve 線轉成面之前給個edit，調整衣物版型用  2.Attach cloth on T-pose Method 1： Vellum drape node Method 2： Vellum stich(可選) → Vellum weld → Vellum solver
+ Vellum drape=time shift Vellum solver的collision 到 1F &#43; Vellum weld 非布料類的配件此時縫上 模擬鈕扣：交互模擬RBD(WIP)詳見下方 分次drape時要先用post process node 把縫合的邊fuse  3." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/vellum-cloth-note/" /><meta property="og:image" content="/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-03-12T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2021-03-12T00:00:00&#43;00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="/logo.png"/>
+
+<meta name="twitter:title" content="Vellum布料筆記"/>
+<meta name="twitter:description" content="Vellum Cloth note Workflow：
+準備衣服geo/asset → Attach cloth on T-pose → 模擬動態 → Vellum post process(auto fix bugs) → 手動修穿
+1.準備衣服geo for需要自己縫衣服時
+drawcurve點出衣物頂點/錨點 → add將點連成線 → 各線段各自resample成subdiv cruve → planar patch from curve
+ 線轉面要求是封閉的線段，無效時用fuse planar patch from curve要勾resample curve 線轉成面之前給個edit，調整衣物版型用  2.Attach cloth on T-pose Method 1： Vellum drape node Method 2： Vellum stich(可選) → Vellum weld → Vellum solver
+ Vellum drape=time shift Vellum solver的collision 到 1F &#43; Vellum weld 非布料類的配件此時縫上 模擬鈕扣：交互模擬RBD(WIP)詳見下方 分次drape時要先用post process node 把縫合的邊fuse  3."/>
+<meta name="application-name" content="Wei-Xiang Chen">
+<meta name="apple-mobile-web-app-title" content="Wei-Xiang Chen"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="/vellum-cloth-note/" /><link rel="next" href="/htoa-set-camera-background-image/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Vellum布料筆記",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "\/vellum-cloth-note\/"
+        },"image": ["\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Houdini, CFX, Vellum, H18","wordcount":  131 ,
+        "url": "\/vellum-cloth-note\/","datePublished": "2021-03-12T00:00:00+00:00","dateModified": "2021-03-12T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "Wei-Xiang Chen","logo": "https:\/\/avatars.githubusercontent.com\/u\/61315168?s=400\u0026v=4"},"author": {
+                "@type": "Person",
+                "name": "Wei-Xiang Chen"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Weishc"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>LoveIt</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/categories/"> Categories </a><a class="menu-item" href="/categories/documentation/"> Docs </a><a class="menu-item" href="/about/"> About </a><a class="menu-item" href="/https:/github.com/weishc/work-stuff" title="GitHub"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="Select Language">English<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/vellum-cloth-note/" selected>English</option><option value="/zh-tw/vellum-cloth-note/">繁體中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Weishc"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>LoveIt</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/categories/" title="">Categories</a><a class="menu-item" href="/categories/documentation/" title="">Docs</a><a class="menu-item" href="/about/" title="">About</a><a class="menu-item" href="/https:/github.com/weishc/work-stuff" title="GitHub"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="Select Language">English<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/vellum-cloth-note/" selected>English</option><option value="/zh-tw/vellum-cloth-note/">繁體中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Vellum布料筆記</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://weishc.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Wei-Xiang Chen</a></span>&nbsp;<span class="post-category">included in <a href="/categories/houdini/"><i class="far fa-folder fa-fw"></i>Houdini</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-03-12">2021-03-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;131 words&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;One minute&nbsp;<span id="/vellum-cloth-note/" class="leancloud_visitors" data-flag-title="Vellum布料筆記">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;views
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1準備衣服geo">1.準備衣服geo</a></li>
+    <li><a href="#2attach-cloth-on-t-pose">2.Attach cloth on T-pose</a></li>
+    <li><a href="#3模擬動態">3.模擬動態</a></li>
+    <li><a href="#4vellum-post-processauto-fix-bugs">4.Vellum post process(auto fix bugs)</a></li>
+    <li><a href="#5手動修穿">5.手動修穿</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="vellum-cloth-note">Vellum Cloth note</h1>
+<p>Workflow：</p>
+<p>準備衣服geo/asset → Attach cloth on T-pose → 模擬動態 → Vellum post process(auto fix bugs) → 手動修穿</p>
+<h2 id="1準備衣服geo">1.準備衣服geo</h2>
+<p>for需要自己縫衣服時</p>
+<p>drawcurve點出衣物頂點/錨點 → add將點連成線 → 各線段各自resample成subdiv cruve → planar patch from curve</p>
+<ul>
+<li>線轉面要求是封閉的線段，無效時用fuse</li>
+<li>planar patch from curve要勾resample curve</li>
+<li>線轉成面之前給個edit，調整衣物版型用</li>
+</ul>
+<h2 id="2attach-cloth-on-t-pose">2.Attach cloth on T-pose</h2>
+<p>Method 1：
+Vellum drape node
+Method 2：
+Vellum stich(可選) → Vellum weld → Vellum solver</p>
+<ul>
+<li>Vellum drape=time shift Vellum solver的collision 到 1F + Vellum weld</li>
+<li>非布料類的配件此時縫上</li>
+<li>模擬鈕扣：交互模擬RBD(WIP)詳見下方</li>
+<li>分次drape時要先用post process node 把縫合的邊fuse</li>
+</ul>
+<h2 id="3模擬動態">3.模擬動態</h2>
+<ul>
+<li>若要在模擬時解決穿插優先增加polish collisions數值，運算較快，接近原本的動態</li>
+<li>增加smoothing iteration,collision passes也有幫助，smoothing iteration運算較慢</li>
+<li>post collision適用於有用布料layer功能時</li>
+<li>以上參數屬於閥值，每個數值都開時增加的運算量不是疊加上去</li>
+<li>耗時上，2 substep<em>10碰撞疊代約等於1 substep</em>20碰撞疊代，但前者效果會更好 <a href="https://www.sidefx.com/docs/houdini/dyno/vellumtips.html" target="_blank" rel="noopener noreffer">來源</a></li>
+<li>初始constraint iteration數值可用模型相距最遠兩點之間的邊數去估算 <a href="https://www.sidefx.com/docs/houdini/dyno/vellumtips.html" target="_blank" rel="noopener noreffer">來源</a></li>
+</ul>
+<h2 id="4vellum-post-processauto-fix-bugs">4.Vellum post process(auto fix bugs)</h2>
+<ul>
+<li>模型和布料的subdivision type用loop較適合</li>
+<li>不影響畫面時可以用detangle，但衣服有穿插時用detangle會更嚴重，關掉self collisions可減少</li>
+<li>detangle的thickness開太高會使衣服產生和模型佈線相同的皺褶，細分沒用，若較高的thickness有必要，用兩個post process，先detangle再細分</li>
+<li>開self collisions有助於找穿插</li>
+<li>用volume sample+模型的N找出穿插，配合detagle SOP和delta mush SOP修復</li>
+<li>修復時先blast出穿幫區域，勾選delta SOP中的 pin border，再fuse回去</li>
+</ul>
+<h2 id="5手動修穿">5.手動修穿</h2>
+<p>mix vop設key</p>
+<p>模擬鈕扣(WIP)
+Method 1：RBD
+需模擬兩次vellum，Vellum → RBD → Vellum
+Method 2：Vellum softbody structure
+硬度開超高假裝成鋼體，但不能在縫製衣服階段用，weld會破壞結構</p>
+<p>絲綢,牛仔布料,皮革：https://www.sidefx.com/tutorials/h17-vellum-cloth-lookdev-tips/</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2021-03-12</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/vellum-cloth-note/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="/vellum-cloth-note/" data-title="Vellum布料筆記" data-via="x0z7pchome" data-hashtags="Houdini,CFX,Vellum,H18"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="/vellum-cloth-note/" data-hashtag="Houdini"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="Share on Linkedin" data-sharer="linkedin" data-url="/vellum-cloth-note/"><i class="fab fa-linkedin fa-fw"></i></a><a href="javascript:void(0);" title="Share on WhatsApp" data-sharer="whatsapp" data-url="/vellum-cloth-note/" data-title="Vellum布料筆記" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="Share on Pinterest" data-sharer="pinterest" data-url="/vellum-cloth-note/"><i class="fab fa-pinterest fa-fw"></i></a><a href="javascript:void(0);" title="Share on Tumblr" data-sharer="tumblr" data-url="/vellum-cloth-note/" data-title="Vellum布料筆記" data-tags="Houdini,CFX,Vellum,H18"><i class="fab fa-tumblr fa-fw"></i></a><a href="javascript:void(0);" title="Share on Reddit" data-sharer="reddit" data-url="/vellum-cloth-note/"><i class="fab fa-reddit fa-fw"></i></a><a href="javascript:void(0);" title="Share on VK" data-sharer="vk" data-url="/vellum-cloth-note/" data-title="Vellum布料筆記"><i class="fab fa-vk fa-fw"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="/vellum-cloth-note/" data-title="Vellum布料筆記"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="/vellum-cloth-note/" data-title="Vellum布料筆記"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/houdini/">Houdini</a>,&nbsp;<a href="/tags/cfx/">CFX</a>,&nbsp;<a href="/tags/vellum/">Vellum</a>,&nbsp;<a href="/tags/h18/">H18</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+            <a href="/htoa-set-camera-background-image/" class="next" rel="next" title="HtoA set camera background image">HtoA set camera background image<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.81.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://weishc.github.io/" target="_blank">Wei-Xiang Chen</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":10},"comment":{"valine":{"appId":"8X0vXnPCb3cX8AUJo3kd13AU-MdYXbMMI","appKey":"Pbmp9Nj895yfrgec2CcCXzCW","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"en","pageSize":10,"placeholder":"Your comment ...","recordIP":true,"serverURLs":"https://leancloud.hugoloveit.com","visitor":true}},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.en","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

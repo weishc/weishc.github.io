@@ -1,0 +1,24 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Arnold - Tag - Weishc</title>
+        <link>/tags/arnold/</link>
+        <description>Arnold - Tag - Weishc</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>x0z7pchome@gmail (Wei-Xiang Chen)</managingEditor>
+            <webMaster>x0z7pchome@gmail (Wei-Xiang Chen)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 26 Mar 2021 00:00:00 &#43;0000</lastBuildDate><atom:link href="/tags/arnold/" rel="self" type="application/rss+xml" /><item>
+    <title>Export ass with motion blur in Maya</title>
+    <link>/export-ass-with-motion-blur-in-maya/</link>
+    <pubDate>Fri, 26 Mar 2021 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>/export-ass-with-motion-blur-in-maya/</guid>
+    <description><![CDATA[Export ass with motion blur in Maya Enable motion in Maya render setting. Then you can render this ass with motion blur in other DCC such as Houdini.]]></description>
+</item><item>
+    <title>HtoA set camera background image</title>
+    <link>/htoa-set-camera-background-image/</link>
+    <pubDate>Fri, 12 Mar 2021 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>/htoa-set-camera-background-image/</guid>
+    <description><![CDATA[HtoA set camera background image Create an Arnold shader network in SHOP and connect the nodes like this. Set the state_float node with X &amp; Y.
+Finally, set the Environment shader parameter to this shop node, under the Arnold ROP.
+tags: Htoa Houdini Arnold ROP out render ]]></description>
+</item></channel>
+</rss>

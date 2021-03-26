@@ -1,0 +1,33 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>VEX - Tag - Weishc</title>
+        <link>/tags/vex/</link>
+        <description>VEX - Tag - Weishc</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>x0z7pchome@gmail (Wei-Xiang Chen)</managingEditor>
+            <webMaster>x0z7pchome@gmail (Wei-Xiang Chen)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 26 Mar 2021 00:00:00 &#43;0000</lastBuildDate><atom:link href="/tags/vex/" rel="self" type="application/rss+xml" /><item>
+    <title>Camera frustum with UV</title>
+    <link>/camera-frustum-with-uv/</link>
+    <pubDate>Fri, 26 Mar 2021 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>/camera-frustum-with-uv/</guid>
+    <description><![CDATA[Camera frustum with UV For delete volume, I suggest tha volume node with volume mix/vdb combine. point wrangle: 1 2 3 4  float margin = chf(&#39;margin&#39;); if (@uv.z == 0) removepoint(0,@ptnum); if (@uv.x &lt; -margin || @uv.x &gt; 1+margin) removepoint(0,@ptnum); if (@uv.y &lt; -margin || @uv.y &gt; 1+margin) removepoint(0,@ptnum);   ]]></description>
+</item><item>
+    <title>Delete volume using point with VEX</title>
+    <link>/delete-volume-using-point-with-vex/</link>
+    <pubDate>Fri, 26 Mar 2021 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>/delete-volume-using-point-with-vex/</guid>
+    <description><![CDATA[Delete volume using point with VEX volume wrangle: 1 2 3 4 5 6  int pt = nearpoint(1,@P); vector P = point(1,&#39;P&#39;,pt); float radius = chf(&#39;radius&#39;); float del = chramp(&#39;falloff&#39;,fit(distance(@P,P),chf(&#39;min&#39;),radius,0,1)); @density*=del; @temperature*=del;   ]]></description>
+</item><item>
+    <title>Houdini math note</title>
+    <link>/houdini-math-note/</link>
+    <pubDate>Fri, 26 Mar 2021 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>/houdini-math-note/</guid>
+    <description><![CDATA[Houdini math note dot product:Determine the general direction of velocity.(acute angle or obtuse angle) In order to determine that the Angle between @v and the X-axis is acute or obtuse.
+x=(1,0,0)
+if (@v dot x) &gt; 0 = +x, else ＝ opposite direction
+dot product Find the angle between two vectors. 1 2 3  vector a = set(0,1,0); vector b = set(1,0,0); f@angle=degrees(acos(dot(a, b)/length(a)*length(b)));   @angle=90
+Also, it can be written as:]]></description>
+</item></channel>
+</rss>

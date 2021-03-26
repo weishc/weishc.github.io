@@ -1,0 +1,19 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>math - Tag - Weishc</title>
+        <link>/tags/math/</link>
+        <description>math - Tag - Weishc</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>x0z7pchome@gmail (Wei-Xiang Chen)</managingEditor>
+            <webMaster>x0z7pchome@gmail (Wei-Xiang Chen)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 26 Mar 2021 00:00:00 &#43;0000</lastBuildDate><atom:link href="/tags/math/" rel="self" type="application/rss+xml" /><item>
+    <title>Houdini math note</title>
+    <link>/houdini-math-note/</link>
+    <pubDate>Fri, 26 Mar 2021 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>/houdini-math-note/</guid>
+    <description><![CDATA[Houdini math note dot product:Determine the general direction of velocity.(acute angle or obtuse angle) In order to determine that the Angle between @v and the X-axis is acute or obtuse.
+x=(1,0,0)
+if (@v dot x) &gt; 0 = +x, else ＝ opposite direction
+dot product Find the angle between two vectors. 1 2 3  vector a = set(0,1,0); vector b = set(1,0,0); f@angle=degrees(acos(dot(a, b)/length(a)*length(b)));   @angle=90
+Also, it can be written as:]]></description>
+</item></channel>
+</rss>

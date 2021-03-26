@@ -1,0 +1,59 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Weishc</title>
+        <link>/zh-tw/</link>
+        <description>Wei-Xiang Chen, Houdini FX Artist</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-TW</language><managingEditor>x0z7pchome@gmail (Wei-Xiang Chen)</managingEditor>
+            <webMaster>x0z7pchome@gmail (Wei-Xiang Chen)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 26 Mar 2021 00:00:00 &#43;0000</lastBuildDate>
+            <atom:link href="/zh-tw/index.xml" rel="self" type="application/rss+xml" />
+        <item>
+    <title>Blackbody 轉換成 Cd 並且用屬性控制</title>
+    <link>/zh-tw/blackbody-to-cd-and-control-with-attribute/</link>
+    <pubDate>Fri, 26 Mar 2021 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>/zh-tw/blackbody-to-cd-and-control-with-attribute/</guid>
+    <description><![CDATA[Blackbody 轉換成 Cd 並且用屬性控制 pyroBlackbody VOP Normal life attribute for example. 要注意H17以前的pyroBlackbody沒有最低溫(temp0)的選項 色域轉換xyz-&gt;rg]]></description>
+</item><item>
+    <title>Maya輸出帶motion blur的ass</title>
+    <link>/zh-tw/export-ass-with-motion-blur-in-maya/</link>
+    <pubDate>Fri, 26 Mar 2021 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>/zh-tw/export-ass-with-motion-blur-in-maya/</guid>
+    <description><![CDATA[Maya輸出帶motion blur的ass maya裡算圖設定開motion blur 輸出的ass就會有motion blur了 tags: Maya Arnold MtoA ASS motionblur]]></description>
+</item><item>
+    <title>使用UV刪除相機外的點</title>
+    <link>/zh-tw/camera-frustum-with-uv/</link>
+    <pubDate>Fri, 26 Mar 2021 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>/zh-tw/camera-frustum-with-uv/</guid>
+    <description><![CDATA[使用UV刪除相機外的點 刪體積用volume節點配合volume mix/vdb combine去刪除會比較方便 point wrangle: 1 2 3 4 float margin = chf(&#39;margin&#39;); if (@uv.z == 0) removepoint(0,@ptnum); if (@uv.x &lt; -margin || @uv.x &gt; 1+margin)]]></description>
+</item><item>
+    <title>用點來刪除體積</title>
+    <link>/zh-tw/delete-volume-using-point-with-vex/</link>
+    <pubDate>Fri, 26 Mar 2021 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>/zh-tw/delete-volume-using-point-with-vex/</guid>
+    <description><![CDATA[用點來刪除體積 volume wrangle: 1 2 3 4 5 6 int pt = nearpoint(1,@P); vector P = point(1,&#39;P&#39;,pt); float radius = chf(&#39;radius&#39;); float del = chramp(&#39;falloff&#39;,fit(distance(@P,P),chf(&#39;min&#39;),radius,0,1)); @density*=del; @temperature*=del;]]></description>
+</item><item>
+    <title>Houdini 數學應用筆記</title>
+    <link>/zh-tw/houdini-math-note/</link>
+    <pubDate>Fri, 12 Mar 2021 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>/zh-tw/houdini-math-note/</guid>
+    <description><![CDATA[Houdini 數學應用筆記 dot product 判斷v大致方向（銳角or鈍角） 假設要判斷@v與x軸為銳角or鈍角 x=(1,0,0) if (@v dot x) &gt;0 =往x軸 else ＝ 往反向 dot product 求兩向量之夾角 1 2 3 vector a]]></description>
+</item><item>
+    <title>HtoA 設定鏡頭的背景圖</title>
+    <link>/zh-tw/htoa-set-camera-background-image/</link>
+    <pubDate>Fri, 12 Mar 2021 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>/zh-tw/htoa-set-camera-background-image/</guid>
+    <description><![CDATA[HtoA 設定鏡頭的背景圖 開個空的arnold shader network接以下node state_float r用Screen X,g用Screen Y 並在out的arnold裡的ma]]></description>
+</item><item>
+    <title>Vellum布料筆記</title>
+    <link>/zh-tw/vellum-cloth-note/</link>
+    <pubDate>Fri, 12 Mar 2021 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>/zh-tw/vellum-cloth-note/</guid>
+    <description><![CDATA[Vellum Cloth note Workflow： 準備衣服geo/asset → Attach cloth on T-pose → 模擬動態 → Vellum post process(auto fix bugs) → 手動修穿 1.準備衣服geo for需要自己縫衣服時 draw]]></description>
+</item></channel>
+</rss>
